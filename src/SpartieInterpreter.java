@@ -132,8 +132,8 @@ public class SpartieInterpreter {
     }
 
     private Object interpretVariable(Expression.VariableExpression expression) {
-        // TODO: Return the value from our global environment
-        return null;
+        // Completed to do: Return the value from our global environment
+        return globalEnvironment.get(expression.name.text);
     }
 
     private Object interpretLiteral(Expression.LiteralExpression expression) {
