@@ -22,6 +22,12 @@ public class Environment {
         // TODO: Return variable if it exists in our current environment, otherwise, check enclosing, otherwise,
         //  return null (it does not exist)
 
+        if (variables.containsKey(name)) {
+            return variables.get(name);
+        } else if (enclosing != null) {
+            return enclosing.get(name);
+        }
+
         return null;
     }
 
@@ -31,8 +37,14 @@ public class Environment {
 
         // TODO: If we don't have it in our current environment, try assigning in the enclosing environment
 
-        // Exit on error if we get this far since the variable is undefined
-        System.err.println("Undefined variable: " + name.text);
-        System.exit(ErrorCode.INTERPRET_ERROR);
+        if (variables.containsKey(name.text)) {
+            variables.put(name.text, value);
+        } else if (enclosing != null) {
+            enclosing.assign(name, value);
+        } else {
+            // Error handling
+            System.err.println("Undefined variable: " + name.text);
+            System.exit(ErrorCode.INTERPRET_ERROR);
+        }
     }
 }
