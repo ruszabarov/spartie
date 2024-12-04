@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class SpartieInterpreter {
@@ -40,8 +41,11 @@ public class SpartieInterpreter {
         if (!(statement.condition instanceof Expression.LogicalExpression)){
             System.exit(ErrorCode.INCORRECT_USAGE);
         }
+        ArrayList<Statement> block = new ArrayList<>();
+
         if(isTrue(interpret(statement.condition))){
-            interpret(statement.body);
+            block.add(statement.body);
+            interpretBlockStatement(new Statement.BlockStatement(block));
         }
     }
 
@@ -50,11 +54,15 @@ public class SpartieInterpreter {
         if (!(statement.condition instanceof Expression.LogicalExpression)){
             System.exit(ErrorCode.INCORRECT_USAGE);
         }
+
+        ArrayList<Statement> block = new ArrayList<>();
         if(isTrue(interpret(statement.condition))){
-            interpret(statement.thenBranch);
+            block.add(statement.thenBranch);
         }else {
-            interpret(statement.elseBranch);
+            block.add(statement.elseBranch);
         }
+
+        interpretBlockStatement(new Statement.BlockStatement(block));
     }
 
     private void interpretBlockStatement(Statement.BlockStatement statement) {
@@ -117,6 +125,9 @@ public class SpartieInterpreter {
     private Object interpretAssign(Expression.AssignmentExpression expression) {
         // TODO: Interpret the expression for the assignment and then assign it to our global environment,
         //  then return the value
+        Token name = expression.name;
+        Expression val = expression.value;
+
 
         return null;
     }
