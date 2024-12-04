@@ -36,7 +36,13 @@ public class SpartieInterpreter {
 
     // Statement Implementation
     private void interpretWhileStatement(Statement.WhileStatement statement) {
-        // TODO: Evaluate the while statement based on the condition
+        // Completed to do: Evaluate the while statement based on the condition
+        if (!(statement.condition instanceof Expression.LogicalExpression)){
+            System.exit(ErrorCode.INCORRECT_USAGE);
+        }
+        if(isTrue(interpret(statement.condition))){
+            interpret(statement.body);
+        }
     }
 
     private void interpretIfStatement(Statement.IfStatement statement) {
