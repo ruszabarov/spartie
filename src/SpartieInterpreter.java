@@ -123,13 +123,12 @@ public class SpartieInterpreter {
     }
 
     private Object interpretAssign(Expression.AssignmentExpression expression) {
-        // TODO: Interpret the expression for the assignment and then assign it to our global environment,
+        // Completed to do: Interpret the expression for the assignment and then assign it to our global environment,
         //  then return the value
         Token name = expression.name;
         Expression val = expression.value;
-
-
-        return null;
+        globalEnvironment.assign(name, val);
+        return val;
     }
 
     private Object interpretVariable(Expression.VariableExpression expression) {
