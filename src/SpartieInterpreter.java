@@ -46,7 +46,15 @@ public class SpartieInterpreter {
     }
 
     private void interpretIfStatement(Statement.IfStatement statement) {
-        // TODO: Evaluate the condition and then execute the appropriate branch
+        // Completed to do: evaluate the condition and then execute the appropriate branch
+        if (!(statement.condition instanceof Expression.LogicalExpression)){
+            System.exit(ErrorCode.INCORRECT_USAGE);
+        }
+        if(isTrue(interpret(statement.condition))){
+            interpret(statement.thenBranch);
+        }else {
+            interpret(statement.elseBranch);
+        }
     }
 
     private void interpretBlockStatement(Statement.BlockStatement statement) {
