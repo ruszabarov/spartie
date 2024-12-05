@@ -38,14 +38,9 @@ public class SpartieInterpreter {
     // Statement Implementation
     private void interpretWhileStatement(Statement.WhileStatement statement) {
         // Completed to do: Evaluate the while statement based on the condition
-        if (!(statement.condition instanceof Expression.LogicalExpression)){
-            System.exit(ErrorCode.INCORRECT_USAGE);
-        }
-        ArrayList<Statement> block = new ArrayList<>();
 
-        if(isTrue(interpret(statement.condition))){
-            block.add(statement.body);
-            interpretBlockStatement(new Statement.BlockStatement(block));
+        while (isTrue(interpret(statement.condition))){
+            interpret(statement.body);
         }
     }
 
@@ -123,12 +118,11 @@ public class SpartieInterpreter {
     }
 
     private Object interpretAssign(Expression.AssignmentExpression expression) {
-        // Completed to do: Interpret the expression for the assignment and then assign it to our global environment,
-        //  then return the value
         Token name = expression.name;
         Expression val = expression.value;
-        globalEnvironment.assign(name, val);
-        return val;
+        Object evaluatedValue = interpret(val); // Evaluate the expression to get its value
+        globalEnvironment.assign(name, evaluatedValue); // Assign the evaluated value
+        return evaluatedValue;
     }
 
     private Object interpretVariable(Expression.VariableExpression expression) {
