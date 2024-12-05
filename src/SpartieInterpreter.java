@@ -46,9 +46,6 @@ public class SpartieInterpreter {
 
     private void interpretIfStatement(Statement.IfStatement statement) {
         // Completed to do: evaluate the condition and then execute the appropriate branch
-        if (!(statement.condition instanceof Expression.LogicalExpression)){
-            System.exit(ErrorCode.INCORRECT_USAGE);
-        }
 
         ArrayList<Statement> block = new ArrayList<>();
         if(isTrue(interpret(statement.condition))){
