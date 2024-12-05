@@ -218,7 +218,7 @@ public class SpartieScanner {
                 type = TokenType.IGNORE;
                 line++;
                 break;
-            case ' ', '\t':
+            case ' ', '\t', '\r':
                 type = TokenType.IGNORE;
                 break;
             default:
